@@ -96,63 +96,67 @@
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
 
                 @forelse ($favorites as $movie)
-                    <article
-                        class="group bg-[#151518] border border-white/10 rounded-2xl overflow-hidden hover:border-red-600/50 hover:-translate-y-1 transition duration-300 shadow-lg">
+                    <a href="{{ route('movies.movie-details', $movie->id) }}"
+                        class="group block bg-[#151518] border border-white/10 rounded-2xl overflow-hidden hover:border-red-600/50 hover:-translate-y-1 transition duration-300 shadow-lg">
 
-                        <!-- PÓSTER -->
-                        <div class="relative aspect-[2/3] overflow-hidden bg-[#09090b]">
+                        <article>
 
-                            @if ($movie->poster_path)
-                                <img src="https://image.tmdb.org/t/p/w500{{ $movie->poster_path }}"
-                                    alt="{{ $movie->title }}"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            @else
-                                <div class="w-full h-full flex items-center justify-center text-5xl">
-                                    🎬
+                            <!-- PÓSTER -->
+                            <div class="relative aspect-[2/3] overflow-hidden bg-[#09090b]">
+
+                                @if ($movie->poster_path)
+                                    <img src="https://image.tmdb.org/t/p/w500{{ $movie->poster_path }}"
+                                        alt="{{ $movie->title }}"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                @else
+                                    <div class="w-full h-full flex items-center justify-center text-5xl">
+                                        🎬
+                                    </div>
+                                @endif
+
+                                <!-- ETIQUETA FAVORITO -->
+                                <div
+                                    class="absolute top-3 right-3 bg-red-600 text-white rounded-full w-9 h-9 flex items-center justify-center shadow-lg">
+                                    ❤️
                                 </div>
-                            @endif
 
-                            <!-- ETIQUETA FAVORITO -->
-                            <div
-                                class="absolute top-3 right-3 bg-red-600 text-white rounded-full w-9 h-9 flex items-center justify-center shadow-lg">
-                                ❤️
-                            </div>
-
-                            <!-- GRADIENTE -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70">
-                            </div>
-
-                        </div>
-
-                        <!-- INFORMACIÓN -->
-                        <div class="p-4">
-
-                            <h3 class="font-bold text-white text-base truncate group-hover:text-red-500 transition">
-                                {{ $movie->title }}
-                            </h3>
-
-                            @if (!empty($movie->release_date))
-                                <p class="text-gray-500 text-xs mt-2">
-                                    {{ \Carbon\Carbon::parse($movie->release_date)->format('Y') }}
-                                </p>
-                            @endif
-
-                            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
-
-                                <span class="text-xs text-gray-400">
-                                    Mi favorito
-                                </span>
-
-                                <span class="text-red-500 text-sm">
-                                    ♥
-                                </span>
+                                <!-- GRADIENTE -->
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70">
+                                </div>
 
                             </div>
 
-                        </div>
+                            <!-- INFORMACIÓN -->
+                            <div class="p-4">
 
-                    </article>
+                                <h3 class="font-bold text-white text-base truncate group-hover:text-red-500 transition">
+                                    {{ $movie->title }}
+                                </h3>
+
+                                @if (!empty($movie->release_date))
+                                    <p class="text-gray-500 text-xs mt-2">
+                                        {{ \Carbon\Carbon::parse($movie->release_date)->format('Y') }}
+                                    </p>
+                                @endif
+
+                                <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+
+                                    <span class="text-xs text-gray-400 group-hover:text-red-400 transition">
+                                        Ver detalles →
+                                    </span>
+
+                                    <span class="text-red-500 text-sm">
+                                        ♥
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </a>
 
                 @empty
 
